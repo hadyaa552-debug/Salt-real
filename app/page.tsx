@@ -67,7 +67,7 @@ const content = {
       eyebrow: "A marina, brought home",
       heading: ["Where two", "waterfronts meet."],
       p1: "SALT Marina is the newest waterfront district within Tatweer Misr's SALT at Ras El Hekma (Km 185) — carved into the coast where the mountain meets the Mediterranean. Combining direct sea access with Crystal Lagoons®, it delivers a dual-waterfront lifestyle unlike anywhere else on the North Coast.",
-      p2: "At its heart, a licensed yacht marina for 65 boats — the North Coast's newest — with docking piers, a 16,000 m² walkway of waterfront retail and dining, three Crystal Lagoons®, a boutique hotel and two beach clubs. Registration is now open for the first launch of 1,350 homes — studios, chalets and town houses from EGP 5.5M.",
+      p2: "At its heart, a licensed yacht marina for 65 boats — the North Coast's newest — with docking piers, a 16,000 m² walkway of waterfront retail and dining, three Crystal Lagoons®, a boutique hotel and two beach clubs. Registration is now open for the first launch of 1,350 homes — studios, chalets and town houses from EGP 8M.",
     },
     features: {
       eyebrow: "Why Salt",
@@ -100,15 +100,15 @@ const content = {
     residences: {
       eyebrow: "The residences",
       heading: "From studios to town houses.",
-      desc: "A full collection wrapping the marina — studios, one- to three-bedroom chalets and town houses, from EGP 5.5M on flexible 5-, 7- and 10-year plans.",
+      desc: "A full collection wrapping the marina — studios, one- to three-bedroom chalets and town houses, from EGP 8M on flexible 5-, 7- and 10-year plans.",
     },
     pricing: {
       eyebrow: "Pricing & plans",
       heading: "Plans over 5, 7 or 10 years.",
-      desc: "SALT Marina starts from EGP 5.5M, on flexible plans of 5, 7 or 10 years — the shorter the plan, the lower the price. Register and an advisor will send you the full zone-by-zone price list.",
+      desc: "SALT Marina starts from EGP 8M, on flexible plans of 5, 7 or 10 years — the shorter the plan, the lower the price. Register and an advisor will send you the full zone-by-zone price list.",
       items: [
-        { value: "5·7·10", label: "Year Plans" },
-        { value: "EGP 5.5M", label: "Starting Price" },
+        { value: "5 · 7 · 10", label: "Year Plans" },
+        { value: "EGP 8M", label: "Starting Price" },
         { value: "2029", label: "Marina Delivery" },
       ],
     },
@@ -180,7 +180,7 @@ const content = {
       eyebrow: "مارينا في قلب البيت",
       heading: ["حيث يلتقي", "واجهتان بحريتان."],
       p1: "سولت مارينا هي أحدث منطقة بحرية ضمن مشروع سولت لتطوير مصر في رأس الحكمة (كم ١٨٥) — منحوتة في الساحل حيث يلتقي الجبل بالبحر المتوسط. تجمع بين الوصول المباشر للبحر والكريستال لاجونز® لتقدم أسلوب حياة بواجهتين بحريتين لا مثيل له على الساحل الشمالي.",
-      p2: "في قلبها مارينا يخوت مرخصة تتسع لـ ٦٥ يختاً — الأحدث على الساحل الشمالي — مع أرصفة رسو وممشى بمساحة ١٦,٠٠٠ م² من المطاعم والمحال التجارية وثلاث كريستال لاجونز® وفندق بوتيك ونادييّ شاطئ. التسجيل مفتوح الآن لأول إطلاق يضم ١,٣٥٠ وحدة — استوديوهات وشاليهات وتاون هاوس تبدأ من ٥.٥ مليون جنيه.",
+      p2: "في قلبها مارينا يخوت مرخصة تتسع لـ ٦٥ يختاً — الأحدث على الساحل الشمالي — مع أرصفة رسو وممشى بمساحة ١٦,٠٠٠ م² من المطاعم والمحال التجارية وثلاث كريستال لاجونز® وفندق بوتيك ونادييّ شاطئ. التسجيل مفتوح الآن لأول إطلاق يضم ١,٣٥٠ وحدة — استوديوهات وشاليهات وتاون هاوس تبدأ من ٨ مليون جنيه.",
     },
     features: {
       eyebrow: "ليه سولت",
@@ -213,15 +213,15 @@ const content = {
     residences: {
       eyebrow: "الوحدات",
       heading: "من الاستوديو للتاون هاوس.",
-      desc: "مجموعة كاملة تحيط بالمارينا — استوديوهات وشاليهات من غرفة لثلاث غرف وتاون هاوس، تبدأ من ٥.٥ مليون جنيه بأنظمة سداد مرنة على ٥ و٧ و١٠ سنوات.",
+      desc: "مجموعة كاملة تحيط بالمارينا — استوديوهات وشاليهات من غرفة لثلاث غرف وتاون هاوس، تبدأ من ٨ مليون جنيه بأنظمة سداد مرنة على ٥ و٧ و١٠ سنوات.",
     },
     pricing: {
       eyebrow: "الأسعار وأنظمة السداد",
       heading: "أنظمة سداد على ٥ و٧ و١٠ سنوات.",
-      desc: "سولت مارينا تبدأ من ٥.٥ مليون جنيه بأنظمة سداد مرنة — كلما كان النظام أقصر، كان السعر أقل. سجّل وهيتواصل معاك مستشار بقائمة الأسعار الكاملة.",
+      desc: "سولت مارينا تبدأ من ٨ مليون جنيه بأنظمة سداد مرنة — كلما كان النظام أقصر، كان السعر أقل. سجّل وهيتواصل معاك مستشار بقائمة الأسعار الكاملة.",
       items: [
-        { value: "٥·٧·١٠", label: "سنوات تقسيط" },
-        { value: "٥.٥ مليون", label: "يبدأ من" },
+        { value: "٥ · ٧ · ١٠", label: "سنوات تقسيط" },
+        { value: "٨ مليون", label: "يبدأ من" },
         { value: "٢٠٢٩", label: "تسليم المارينا" },
       ],
     },
@@ -278,11 +278,11 @@ const galleryImages = [
 ];
 
 const unitTypes = [
-  { en: "Studio", ar: "استوديو", area: "55–70 m²", price: "5.5M" },
-  { en: "1-Bed Chalet", ar: "شاليه غرفة", area: "80–100 m²", price: "7.5M" },
-  { en: "2-Bed Chalet", ar: "شاليه غرفتين", area: "110–135 m²", price: "10M" },
-  { en: "3-Bed Chalet", ar: "شاليه ٣ غرف", area: "150–180 m²", price: "14M" },
-  { en: "Town House", ar: "تاون هاوس", area: "200–250 m²", price: "18M" },
+  { en: "Studio", ar: "استوديو", area: "55–70 m²", price: "8M" },
+  { en: "1-Bed Chalet", ar: "شاليه غرفة", area: "80–100 m²", price: "9.5M" },
+  { en: "2-Bed Chalet", ar: "شاليه غرفتين", area: "110–135 m²", price: "12M" },
+  { en: "3-Bed Chalet", ar: "شاليه ٣ غرف", area: "150–180 m²", price: "16M" },
+  { en: "Town House", ar: "تاون هاوس", area: "200–250 m²", price: "20M" },
 ];
 
 /* ══════════════════════════════════════════════════════════
@@ -357,7 +357,7 @@ export default function SaltMarina() {
     setMobileMenu(false);
   };
 
-  const serif = { fontFamily: "var(--font-display)" };
+  const serif = { fontFamily: lang === "ar" ? "var(--font-arabic-display)" : "var(--font-display)", fontWeight: lang === "ar" ? 800 : undefined };
 
   return (
     <>

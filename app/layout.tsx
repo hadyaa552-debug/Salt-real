@@ -8,7 +8,7 @@ const FB_PIXEL = "XXXXXXXXXXXXXXXXX"; // Facebook Pixel — replace
 export const metadata: Metadata = {
   title: "SALT Marina — Ras El Hekma | Tatweer Misr",
   description:
-    "SALT Marina by Tatweer Misr — a licensed yacht marina at Km 185, Ras El Hekma. Studios, chalets and town houses from EGP 5.5M. Register now for priority access.",
+    "SALT Marina by Tatweer Misr — a licensed yacht marina at Km 185, Ras El Hekma. Studios, chalets and town houses from EGP 8M. Register now for priority access.",
   openGraph: {
     title: "SALT Marina — Where Two Waterfronts Meet",
     description:
@@ -33,7 +33,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Cairo:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
 
