@@ -1,9 +1,9 @@
 "use client";
 
 /* ── Constants ────────────────────────────────────────── */
-const P = "01XXXXXXXXX";          // Phone
-const PD = "2010XXXXXXXX";        // Phone (international)
-const WN = "2010XXXXXXXX";        // WhatsApp number
+const P = "01001050018";           // Phone
+const PD = "201001050018";        // Phone (international)
+const WN = "201001050018";        // WhatsApp number
 const WK = "YOUR-WEB3FORMS-KEY";  // Web3Forms access key
 const GA_ID = "AW-XXXXXXXXXX";    // Google Ads conversion ID
 
@@ -278,11 +278,11 @@ const galleryImages = [
 ];
 
 const unitTypes = [
-  { en: "Studio", ar: "استوديو", area: "55–70 m²", price: "8M" },
-  { en: "1-Bed Chalet", ar: "شاليه غرفة", area: "80–100 m²", price: "9.5M" },
-  { en: "2-Bed Chalet", ar: "شاليه غرفتين", area: "110–135 m²", price: "12M" },
-  { en: "3-Bed Chalet", ar: "شاليه ٣ غرف", area: "150–180 m²", price: "16M" },
-  { en: "Town House", ar: "تاون هاوس", area: "200–250 m²", price: "20M" },
+  { en: "Studio", ar: "استوديو", rooms: 0, area: "50 m²", areaAr: "٥٠ م²", price: "5,541,000", badge: { en: "Most Popular", ar: "الأكثر طلباً" }, note: { en: "Marina view", ar: "إطلالة مارينا" }, img: "https://www.najd.realestate/assets/img/salt/salt-apartment.jpg" },
+  { en: "1-Bed Chalet", ar: "شاليه غرفة نوم", rooms: 1, area: "65–90 m²", areaAr: "٦٥-٩٠ م²", price: "6,054,000", badge: { en: "Ideal Entry", ar: "دخول مثالي" }, note: { en: "1 bedroom", ar: "١ غرفة" }, img: "https://www.najd.realestate/assets/img/salt/salt-bay.jpg" },
+  { en: "2-Bed Chalet", ar: "شاليه غرفتين نوم", rooms: 2, area: "95–115 m²", areaAr: "٩٥-١١٥ م²", price: "8,347,000", badge: { en: "Top Demand", ar: "الأعلى طلباً" }, note: { en: "2 bedrooms", ar: "٢ غرفة" }, img: "https://www.najd.realestate/assets/img/salt/salt-villa.jpg" },
+  { en: "3-Bed Chalet", ar: "شاليه ٣ غرف نوم", rooms: 3, area: "130–160 m²", areaAr: "١٣٠-١٦٠ م²", price: "11,200,000", badge: { en: "Family Choice", ar: "اختيار العائلة" }, note: { en: "3 bedrooms", ar: "٣ غرف" }, img: "https://www.najd.realestate/assets/img/salt/salt-villa-living.jpg" },
+  { en: "Town House", ar: "تاون هاوس", rooms: 4, area: "180–230 m²", areaAr: "١٨٠-٢٣٠ م²", price: "16,500,000", badge: { en: "Premium", ar: "بريميوم" }, note: { en: "3+ bedrooms", ar: "+٣ غرف" }, img: "https://www.najd.realestate/assets/img/salt/salt-townhouse.jpg" },
 ];
 
 /* ══════════════════════════════════════════════════════════
@@ -295,6 +295,10 @@ export default function SaltMarina() {
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [formSent, setFormSent] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupDismissed, setPopupDismissed] = useState(false);
+  const [popupFormSent, setPopupFormSent] = useState(false);
+  const [popupFormLoading, setPopupFormLoading] = useState(false);
 
   const t = content[lang];
 
@@ -304,6 +308,18 @@ export default function SaltMarina() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Popup trigger: 55% scroll OR 16 seconds
+  useEffect(() => {
+    if (popupDismissed) return;
+    const timer = setTimeout(() => { if (!popupDismissed) setShowPopup(true); }, 16000);
+    const onScroll = () => {
+      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrollPct > 0.55 && !popupDismissed) setShowPopup(true);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
+  }, [popupDismissed]);
 
   // Intersection observer for animations
   useEffect(() => {
@@ -351,6 +367,24 @@ export default function SaltMarina() {
     }
     setFormLoading(false);
   };
+
+  // Popup form handler
+  const handlePopupSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPopupFormLoading(true);
+    const data = new FormData(e.currentTarget);
+    try {
+      await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
+      trackLead();
+      setPopupFormSent(true);
+      setTimeout(() => { setShowPopup(false); setPopupDismissed(true); }, 2500);
+    } catch {
+      alert("Something went wrong.");
+    }
+    setPopupFormLoading(false);
+  };
+
+  const closePopup = () => { setShowPopup(false); setPopupDismissed(true); };
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -532,6 +566,19 @@ export default function SaltMarina() {
               </div>
             ))}
           </div>
+          {/* CTA after features */}
+          <div className="text-center mt-14 animate-on-scroll">
+            <p className="text-sm mb-4" style={{ color: "var(--color-muted)" }}>
+              {lang === "en" ? "Registration closes in 10 days" : "التسجيل ينتهي خلال ١٠ أيام"}
+            </p>
+            <button
+              onClick={() => setShowPopup(true)}
+              className="px-10 py-4 rounded-full font-semibold text-white text-base transition-all hover:scale-105 shadow-lg"
+              style={{ background: "var(--color-sea)" }}
+            >
+              {lang === "en" ? "Register Your Interest" : "سجّل اهتمامك الآن"}
+            </button>
+          </div>
         </div>
       </section>
 
@@ -637,30 +684,66 @@ export default function SaltMarina() {
             <h2 className="text-3xl md:text-4xl font-medium mb-4" style={serif}>{t.residences.heading}</h2>
             <p className="max-w-2xl mx-auto text-sm leading-relaxed" style={{ color: "var(--color-muted)" }}>{t.residences.desc}</p>
           </div>
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+          {/* Scrollable on mobile, grid on desktop */}
+          <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-5 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0">
             {unitTypes.map((u, i) => (
               <div
                 key={i}
-                className="animate-on-scroll p-6 rounded-xl text-center border transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+                className="animate-on-scroll flex-shrink-0 w-[280px] md:w-auto snap-center rounded-2xl overflow-hidden border transition-all hover:shadow-xl"
                 style={{ background: "white", borderColor: "var(--color-border)" }}
-                onClick={() => scrollTo("register")}
               >
-                <div className="text-3xl mb-3" style={{ color: "var(--color-sea)" }}>
-                  {["🏢", "🛏️", "🏠", "🏡", "🏘️"][i]}
+                {/* Card image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img src={u.img} alt={lang === "en" ? u.en : u.ar} className="w-full h-full object-cover" />
+                  {/* Badge */}
+                  <div className="absolute top-3 end-3 px-3 py-1 rounded-full text-xs font-semibold text-white" style={{ background: "var(--color-sea)" }}>
+                    {lang === "en" ? u.badge.en : u.badge.ar}
+                  </div>
                 </div>
-                <h3 className="font-semibold mb-1" style={serif}>{lang === "en" ? u.en : u.ar}</h3>
-                <p className="text-xs mb-2" style={{ color: "var(--color-muted)" }}>{u.area}</p>
-                <p className="text-sm font-semibold" style={{ color: "var(--color-sea)" }}>
-                  {lang === "en" ? `From EGP ${u.price}` : `يبدأ من ${u.price} جنيه`}
-                </p>
+                {/* Card content */}
+                <div className="p-5">
+                  <h3 className="text-lg font-bold mb-2" style={serif}>{lang === "en" ? u.en : u.ar}</h3>
+                  <div className="flex items-center gap-3 text-xs mb-4" style={{ color: "var(--color-muted)" }}>
+                    <span>{lang === "en" ? u.note.en : u.note.ar}</span>
+                    <span>·</span>
+                    <span>{lang === "en" ? u.area : u.areaAr}</span>
+                  </div>
+                  <p className="text-xs mb-1" style={{ color: "var(--color-muted)" }}>{lang === "en" ? "Starting from" : "يبدأ من"}</p>
+                  <p className="text-xl font-bold mb-4" style={{ ...serif, color: "var(--color-navy)" }}>
+                    {u.price} <span className="text-sm font-normal">{lang === "en" ? "EGP" : "ج.م"}</span>
+                  </p>
+                  <a
+                    href={`https://wa.me/${WN}?text=${encodeURIComponent(lang === "en" ? `Hi, I'm interested in ${u.en} at SALT Marina` : `مرحبا، أنا مهتم بـ ${u.ar} في سولت مارينا`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={trackWA}
+                    className="block w-full py-3 rounded-full text-center text-sm font-semibold text-white transition-all hover:scale-[1.02]"
+                    style={{ background: "#25D366" }}
+                  >
+                    {lang === "en" ? "Book via WhatsApp" : "احجز عبر واتساب"}
+                  </a>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-center text-xs mt-6 italic" style={{ color: "var(--color-muted)" }}>
+
+          <p className="text-center text-xs mt-8 italic" style={{ color: "var(--color-muted)" }}>
             {lang === "en"
-              ? "Starting prices shown are the lowest per unit type on a 5-year plan; final prices vary by zone and are subject to the developer's official price list."
-              : "الأسعار المعروضة هي أقل سعر لكل نوع وحدة على نظام ٥ سنوات؛ الأسعار النهائية تختلف حسب المنطقة وفقاً لقائمة المطور الرسمية."}
+              ? "* Indicative prices on a 5-year plan; final prices vary by zone per the developer's official list."
+              : "* أسعار استرشادية على نظام ٥ سنوات؛ الأسعار النهائية تختلف حسب المنطقة وفقاً لقائمة المطور الرسمية."}
           </p>
+
+          {/* CTA after residences */}
+          <div className="text-center mt-10 animate-on-scroll">
+            <button
+              onClick={() => setShowPopup(true)}
+              className="px-10 py-4 rounded-full font-semibold text-white text-base transition-all hover:scale-105 shadow-lg"
+              style={{ background: "var(--color-sea)" }}
+            >
+              {lang === "en" ? "Register Now — Limited Units" : "سجّل الآن — الوحدات محدودة"}
+            </button>
+          </div>
         </div>
       </section>
 
@@ -679,6 +762,26 @@ export default function SaltMarina() {
                 <div className="text-xs uppercase tracking-wider" style={{ color: "var(--color-muted)" }}>{p.label}</div>
               </div>
             ))}
+          </div>
+          {/* CTA after pricing */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 animate-on-scroll">
+            <button
+              onClick={() => setShowPopup(true)}
+              className="px-10 py-4 rounded-full font-semibold text-white text-base transition-all hover:scale-105 shadow-lg"
+              style={{ background: "var(--color-sea)" }}
+            >
+              {lang === "en" ? "Get the Full Price List" : "احصل على قائمة الأسعار الكاملة"}
+            </button>
+            <a
+              href={`https://wa.me/${WN}?text=${encodeURIComponent(lang === "en" ? "Hi, I want the SALT Marina price list" : "مرحبا، عايز قائمة أسعار سولت مارينا")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={trackWA}
+              className="px-10 py-4 rounded-full font-semibold text-sm transition-all hover:scale-105 border-2"
+              style={{ borderColor: "#25D366", color: "#25D366" }}
+            >
+              {lang === "en" ? "Ask on WhatsApp" : "اسأل على واتساب"}
+            </a>
           </div>
         </div>
       </section>
@@ -893,13 +996,129 @@ export default function SaltMarina() {
           WhatsApp
         </a>
         <button
-          onClick={() => scrollTo("register")}
+          onClick={() => setShowPopup(true)}
           className="flex-1 py-2.5 rounded-full text-center text-sm font-medium text-white"
           style={{ background: "var(--color-sea)" }}
         >
           {lang === "en" ? "Register" : "سجّل"}
         </button>
       </div>
+
+      {/* ═══ POPUP — Registration with urgency ═══ */}
+      {showPopup && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
+          onClick={(e) => { if (e.target === e.currentTarget) closePopup(); }}
+        >
+          <div
+            className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl"
+            style={{ background: "white", animation: "fadeUp 0.4s ease" }}
+            dir={t.dir}
+          >
+            {/* Close button */}
+            <button onClick={closePopup} className="absolute top-4 end-4 z-10 w-8 h-8 rounded-full flex items-center justify-center text-lg hover:opacity-60 transition-opacity" style={{ background: "var(--color-cream)", color: "var(--color-navy)" }}>✕</button>
+
+            {/* Urgency banner */}
+            <div className="px-6 py-3 text-center text-sm font-semibold text-white" style={{ background: "#e63946" }}>
+              <span className="inline-flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" fill="none"/><path d="M12 6v6l4 2" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/></svg>
+                {lang === "en" ? "Only 10 days left — Registration closes soon!" : "باقي ١٠ أيام فقط — التسجيل ينتهي قريباً!"}
+              </span>
+            </div>
+
+            {/* Popup header */}
+            <div className="px-6 pt-6 pb-2 text-center">
+              <h3 className="text-xl font-bold mb-1" style={{ ...serif, color: "var(--color-navy)" }}>
+                {lang === "en" ? "Register Your Interest" : "سجّل اهتمامك الآن"}
+              </h3>
+              <p className="text-xs" style={{ color: "var(--color-muted)" }}>
+                {lang === "en" ? "SALT Marina · Ras El Hekma — Tatweer Misr" : "سولت مارينا · رأس الحكمة — تطوير مصر"}
+              </p>
+            </div>
+
+            {/* Popup form */}
+            <div className="px-6 pb-6 pt-4">
+              {!popupFormSent ? (
+                <form onSubmit={handlePopupSubmit} className="space-y-4">
+                  <input type="hidden" name="access_key" value={WK} />
+                  <input type="hidden" name="subject" value="SALT Marina — Popup Lead" />
+                  <input type="hidden" name="from_name" value="SALT Marina Popup" />
+                  <input type="checkbox" name="botcheck" className="hidden" />
+
+                  <input
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:ring-2"
+                    style={{ borderColor: "var(--color-border)" }}
+                    placeholder={lang === "en" ? "Full name" : "الاسم بالكامل"}
+                  />
+                  <input
+                    name="phone"
+                    type="tel"
+                    required
+                    className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:ring-2"
+                    style={{ borderColor: "var(--color-border)" }}
+                    placeholder="01XXXXXXXXX"
+                    dir="ltr"
+                  />
+                  <select
+                    name="unit_interest"
+                    className="w-full px-4 py-3 rounded-xl border text-sm outline-none"
+                    style={{ borderColor: "var(--color-border)" }}
+                  >
+                    {t.register.unitOptions.map((o, i) => (
+                      <option key={i}>{o}</option>
+                    ))}
+                  </select>
+                  <button
+                    type="submit"
+                    disabled={popupFormLoading}
+                    className="w-full py-3.5 rounded-full font-bold text-white text-base transition-all hover:scale-[1.02] disabled:opacity-50"
+                    style={{ background: "var(--color-sea)" }}
+                  >
+                    {popupFormLoading ? "..." : lang === "en" ? "Register Now" : "سجّل الآن"}
+                  </button>
+                </form>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center text-2xl" style={{ background: "var(--color-sea-light)", color: "var(--color-sea)" }}>✓</div>
+                  <h4 className="text-lg font-bold mb-1" style={serif}>{t.register.successTitle}</h4>
+                  <p className="text-sm" style={{ color: "var(--color-muted)" }}>{t.register.successMsg}</p>
+                </div>
+              )}
+
+              {/* Quick WhatsApp + Call in popup */}
+              {!popupFormSent && (
+                <div className="flex gap-3 mt-4">
+                  <a
+                    href={`https://wa.me/${WN}?text=${encodeURIComponent(lang === "en" ? "Hi, I'm interested in SALT Marina" : "مرحبا، أنا مهتم بسولت مارينا")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => { trackWA(); closePopup(); }}
+                    className="flex-1 py-2.5 rounded-full text-center text-sm font-semibold text-white"
+                    style={{ background: "#25D366" }}
+                  >
+                    WhatsApp
+                  </a>
+                  <a
+                    href={`tel:${P}`}
+                    onClick={() => { trackCall(); closePopup(); }}
+                    className="flex-1 py-2.5 rounded-full text-center text-sm font-semibold border"
+                    style={{ borderColor: "var(--color-sea)", color: "var(--color-sea)" }}
+                  >
+                    {lang === "en" ? "Call Us" : "اتصل بنا"}
+                  </a>
+                </div>
+              )}
+
+              <p className="text-[10px] text-center mt-3" style={{ color: "var(--color-muted)" }}>
+                {t.register.consent}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
