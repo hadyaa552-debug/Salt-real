@@ -4,7 +4,7 @@
 const P = "01001050018";           // Phone
 const PD = "201001050018";        // Phone (international)
 const WN = "201001050018";        // WhatsApp number
-const WK = "YOUR-WEB3FORMS-KEY";  // Web3Forms access key
+const WK = "f12946f2-37a9-4668-a06e-b4ec362eaa33";  // Web3Forms access key
 const GA_ID = "AW-XXXXXXXXXX";    // Google Ads conversion ID
 
 /* ── Tracking helpers ─────────────────────────────────── */
